@@ -25,7 +25,7 @@ final class UserDtoToUserMapper extends CustomMapper
         $destination->name = $source->name;
         $destination->surname = $source->surname;
         $destination->email = $source->email;
-        $destination->password = $source->password;
+        $destination->password = password_hash($source->password, PASSWORD_BCRYPT);
         $destination->role = $source->role;
 
         return $destination;

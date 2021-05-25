@@ -3,15 +3,18 @@ declare(strict_types=1);
 
 namespace App\Models\Mapper;
 
+use App\Models\AuthDto;
 use App\Models\ErrorDto;
 use App\Models\Ticket;
 use App\Models\TicketDto;
+use App\Models\TokenDto;
 use App\Models\User;
 use App\Models\UserDto;
 use AutoMapperPlus\AutoMapper;
 use AutoMapperPlus\Configuration\AutoMapperConfig;
-use Exception;
+use AutoMapperPlus\DataType;
 use Illuminate\Http\Request;
+use Throwable;
 
 /**
  * Class Mapper
@@ -46,8 +49,11 @@ final class Mapper
         $config->registerMapping(Ticket::class, TicketDto::class)
             ->useCustomMapper(new TicketToTicketDtoMapper());
 
-        $config->registerMapping(Exception::class, ErrorDto::class)
+        $config->registerMapping(Throwable::class, ErrorDto::class)
             ->useCustomMapper(new ExceptionToErrorDto());
+
+        $config->registerMapping(Request::class, AuthDto::class)
+            ->useCustomMapper(new RequestToAuthDtoMapper());
 
         return new AutoMapper($config);
     }

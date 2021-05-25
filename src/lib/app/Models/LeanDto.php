@@ -1,11 +1,12 @@
 <?php
-declare(strict_types=1);
+/**
+ * LeanDto
+ */
 
 namespace App\Models;
 
 /**
- * Class LeanDto
- * @package App\Models
+ * LeanDto
  */
 class LeanDto
 {

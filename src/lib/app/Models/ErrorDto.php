@@ -1,11 +1,12 @@
 <?php
-declare(strict_types=1);
+/**
+ * ErrorDto
+ */
 
 namespace App\Models;
 
 /**
- * Class ErrorDto
- * @package App\Models
+ * ErrorDto
  */
 class ErrorDto
 {

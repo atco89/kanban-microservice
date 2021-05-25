@@ -1,11 +1,12 @@
 <?php
-declare(strict_types=1);
+/**
+ * TicketDto
+ */
 
 namespace App\Models;
 
 /**
- * Class TicketDto
- * @package App\Models
+ * TicketDto
  */
 class TicketDto
 {

@@ -9,6 +9,7 @@ use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Validation\UnauthorizedException;
 use Throwable;
 
 /**
@@ -69,6 +70,10 @@ class Handler extends ExceptionHandler
 
         if ($exception instanceof UserNotFoundException) {
             return response()->json($mapper->map($exception, ErrorDto::class), Response::HTTP_NOT_FOUND);
+        }
+
+        if ($exception instanceof UnauthorizedException) {
+            return response()->json($mapper->map($exception, ErrorDto::class), Response::HTTP_UNAUTHORIZED);
         }
 
         if ($exception instanceof Exception || $exception instanceof Throwable) {

@@ -1,11 +1,12 @@
 <?php
-declare(strict_types=1);
+/**
+ * UserDto
+ */
 
 namespace App\Models;
 
 /**
- * Class UserDto
- * @package App\Models
+ * UserDto
  */
 class UserDto
 {

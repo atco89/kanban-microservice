@@ -3,31 +3,27 @@ declare(strict_types=1);
 
 namespace App\Models\Mapper;
 
-use App\Models\UserDto;
+use App\Models\AuthDto;
 use AutoMapperPlus\CustomMapper\CustomMapper;
 use Illuminate\Http\Request;
 
 /**
- * Class RequestToUserDtoMapper
+ * Class RequestToAuthDtoMapper
  * @package App\Models\Mapper
  */
-final class RequestToUserDtoMapper extends CustomMapper
+final class RequestToAuthDtoMapper extends CustomMapper
 {
 
     /**
      * @param Request $source
-     * @param UserDto $destination
-     * @return UserDto
+     * @param AuthDto $destination
+     * @return AuthDto
      * @noinspection PhpUndefinedFieldInspection
      */
-    public function mapToObject($source, $destination): UserDto
+    public function mapToObject($source, $destination): AuthDto
     {
-        $destination->name = $source->name;
-        $destination->surname = $source->surname;
         $destination->email = $source->email;
         $destination->password = $source->password;
-        $destination->role = $source->role;
-
         return $destination;
     }
 }

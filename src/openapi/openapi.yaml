@@ -13,6 +13,28 @@ info:
     name: MIT
     url: https://opensource.org/licenses/MIT
 paths:
+  /auth:
+    post:
+      summary: Used to authenticate user.
+      description: This operation is used to authenticate user.
+      operationId: signIn
+      tags:
+        - auth
+      parameters:
+        - $ref: "#/components/parameters/Jwt"
+      requestBody:
+        $ref: "#/components/requestBodies/AuthRequest"
+      responses:
+        200:
+          description: OK
+        400:
+          $ref: "#/components/responses/BadRequest"
+        401:
+          $ref: "#/components/responses/Unauthenticated"
+        403:
+          $ref: "#/components/responses/Unauthorized"
+        500:
+          $ref: "#/components/responses/InternalServerError"
   /ticket:
     post:
       summary: Used to store ticket.
@@ -288,6 +310,11 @@ components:
       scheme: bearer
       bearerFormat: JWT
   requestBodies:
+    AuthRequest:
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/AuthDto"
     TicketRequest:
       content:
         application/json:
@@ -358,6 +385,18 @@ components:
           schema:
             $ref: "#/components/schemas/ErrorDto"
   schemas:
+    AuthDto:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+          format: password
+      required:
+        - email
+        - password
     UserDto:
       type: object
       properties:
@@ -446,6 +485,13 @@ components:
       in: query
       required: true
       description: Used to identify user by key words.
+      schema:
+        type: string
+    Jwt:
+      name: jwt
+      in: header
+      required: false
+      description: JSON Web Token.
       schema:
         type: string
 security:
