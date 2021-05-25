@@ -7,16 +7,13 @@ namespace App\Models;
  * Class ErrorDto
  * @package App\Models
  */
-final class ErrorDto
+class ErrorDto
 {
 
-    /**
-     * @var string
-     */
-    public string $code;
+    /** @var string $code */
+    public $code;
 
-    /**
-     * @var string
-     */
-    public string $message;
+    /** @var string $message */
+    public $message;
+
 }

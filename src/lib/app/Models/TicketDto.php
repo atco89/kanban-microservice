@@ -7,37 +7,25 @@ namespace App\Models;
  * Class TicketDto
  * @package App\Models
  */
-final class TicketDto
+class TicketDto
 {
 
-    /**
-     * @var string
-     */
-    public string $uuid;
+    /** @var string $uuid */
+    public $uuid;
 
-    /**
-     * @var string
-     */
-    public string $title;
+    /** @var string $title */
+    public $title;
 
-    /**
-     * @var string
-     */
-    public string $description;
+    /** @var string $description */
+    public $description;
 
-    /**
-     * @var string|null
-     */
-    public ?string $lean;
+    /** @var string $lean */
+    public $lean;
 
-    /**
-     * @var int
-     */
-    public int $priority;
+    /** @var int $priority */
+    public $priority;
 
-    /**
-     * @var string|null
-     */
-    public ?string $assignedTo;
+    /** @var string $assignedTo */
+    public $assignedTo;
 
 }

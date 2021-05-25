@@ -7,7 +7,7 @@ namespace App\Models;
  * Class UserDto
  * @package App\Models
  */
-final class UserDto
+class UserDto
 {
 
     /** @var string $uuid */
