@@ -36,11 +36,11 @@ services:
     image: swaggerapi/swagger-ui
     container_name: ${SWAGGER_UI_CONTAINER_NAME}
     volumes:
-      - ./../src/openapi/openapi.json:/openapi.json
+      - ./../src/openapi/openapi.yaml:/openapi.yaml
     ports:
       - ${SWAGGER_UI_PORT}:8080
     environment:
-      SWAGGER_JSON: /openapi.json
+      SWAGGER_JSON: /openapi.yaml
   adminer:
     image: adminer
     container_name: ${ADMINER_CONTAINER_NAME}
