@@ -32,3 +32,19 @@ services:
       - database
     env_file:
       - ./../.env
+  swagger-ui:
+    image: swaggerapi/swagger-ui
+    container_name: ${SWAGGER_UI_CONTAINER_NAME}
+    volumes:
+      - ./../src/openapi/openapi.json:/openapi.json
+    ports:
+      - ${SWAGGER_UI_PORT}:8080
+    environment:
+      SWAGGER_JSON: /openapi.json
+  adminer:
+    image: adminer
+    container_name: ${ADMINER_CONTAINER_NAME}
+    ports:
+      - ${ADMINER_PORT}:8080
+    depends_on:
+      - database

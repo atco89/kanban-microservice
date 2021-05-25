@@ -3,7 +3,7 @@ servers:
   - url: https://localhost/api/v1
     description: Server description.
 info:
-  title: Kanban
+  title: Kanban Microservice
   version: 1.0.0
   contact:
     name: Aleksandar Rakić
@@ -79,7 +79,7 @@ paths:
       tags:
         - ticket
       parameters:
-        - $ref: "#/components/parameters/TicketId"
+        - $ref: "#/components/parameters/Uuid"
       requestBody:
         $ref: "#/components/requestBodies/TicketRequest"
       responses:
@@ -102,7 +102,7 @@ paths:
       tags:
         - ticket
       parameters:
-        - $ref: "#/components/parameters/TicketId"
+        - $ref: "#/components/parameters/Uuid"
       responses:
         204:
           description: No Content
@@ -182,7 +182,7 @@ paths:
       tags:
         - user
       parameters:
-        - $ref: "#/components/parameters/UserId"
+        - $ref: "#/components/parameters/Uuid"
       requestBody:
         $ref: "#/components/requestBodies/UserRequest"
       responses:
@@ -205,7 +205,7 @@ paths:
       tags:
         - user
       parameters:
-        - $ref: "#/components/parameters/UserId"
+        - $ref: "#/components/parameters/Uuid"
       responses:
         204:
           description: No Content
@@ -375,17 +375,12 @@ components:
           type: string
           format: password
         role:
-          $ref: "#/components/schemas/RoleDto"
+          type: string
       required:
         - name
         - surname
         - email
         - role
-    RoleDto:
-      type: string
-      enum:
-        - ADMIN
-        - USER
     LeanDto:
       type: object
       properties:
@@ -408,11 +403,13 @@ components:
         description:
           type: string
         lean:
-          $ref: "#/components/schemas/LeanDto"
+          type: string
+          format: uuid
         priority:
           type: integer
         assignedTo:
-          $ref: "#/components/schemas/UserDto"
+          type: string
+          format: uuid
       required:
         - title
         - lean
