@@ -1,0 +1,7 @@
+/.idea/
+/src/lib/vendor/
+/src/openapi/openapi-generator/
+/src/lib/.env
+/src/.openapi-generator/
+/src/.openapi-generator-ignore
+.DS_Store

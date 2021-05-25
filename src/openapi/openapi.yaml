@@ -1,0 +1,455 @@
+openapi: 3.0.0
+servers:
+  - url: https://localhost/api/v1
+    description: Server description.
+info:
+  title: Kanban
+  version: 1.0.0
+  contact:
+    name: Aleksandar Rakić
+    email: aleksandar.rakic@yahoo.com
+    url: https://www.guestfriend.com
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+paths:
+  /ticket:
+    post:
+      summary: Used to store ticket.
+      description: This operation is used to store ticket.
+      operationId: storeTicket
+      tags:
+        - ticket
+      requestBody:
+        $ref: "#/components/requestBodies/TicketRequest"
+      responses:
+        201:
+          $ref: "#/components/responses/TicketResponse"
+        400:
+          $ref: "#/components/responses/BadRequest"
+        401:
+          $ref: "#/components/responses/Unauthenticated"
+        403:
+          $ref: "#/components/responses/Unauthorized"
+        500:
+          $ref: "#/components/responses/InternalServerError"
+    get:
+      summary: Used to retrieve all tickets.
+      description: This operation is used to retrieve all tickets.
+      operationId: retrieveAllTickets
+      tags:
+        - ticket
+      responses:
+        200:
+          $ref: "#/components/responses/TicketsResponse"
+        400:
+          $ref: "#/components/responses/BadRequest"
+        401:
+          $ref: "#/components/responses/Unauthenticated"
+        403:
+          $ref: "#/components/responses/Unauthorized"
+        500:
+          $ref: "#/components/responses/InternalServerError"
+  /ticket/{uuid}:
+    get:
+      summary: Used to retrieve ticket.
+      description: This operation is used to retrieve ticket.
+      operationId: retrieveTicket
+      tags:
+        - ticket
+      parameters:
+        - $ref: "#/components/parameters/Uuid"
+      responses:
+        200:
+          $ref: "#/components/responses/TicketResponse"
+        400:
+          $ref: "#/components/responses/BadRequest"
+        401:
+          $ref: "#/components/responses/Unauthenticated"
+        403:
+          $ref: "#/components/responses/Unauthorized"
+        404:
+          $ref: "#/components/responses/NotFound"
+        500:
+          $ref: "#/components/responses/InternalServerError"
+    patch:
+      summary: Used to modify ticket.
+      description: This operation is used to modify ticket.
+      operationId: modifyTicket
+      tags:
+        - ticket
+      parameters:
+        - $ref: "#/components/parameters/TicketId"
+      requestBody:
+        $ref: "#/components/requestBodies/TicketRequest"
+      responses:
+        200:
+          $ref: "#/components/responses/TicketResponse"
+        400:
+          $ref: "#/components/responses/BadRequest"
+        401:
+          $ref: "#/components/responses/Unauthenticated"
+        403:
+          $ref: "#/components/responses/Unauthorized"
+        404:
+          $ref: "#/components/responses/NotFound"
+        500:
+          $ref: "#/components/responses/InternalServerError"
+    delete:
+      summary: Used to delete ticket.
+      description: This operation is used to delete ticket.
+      operationId: deleteTicket
+      tags:
+        - ticket
+      parameters:
+        - $ref: "#/components/parameters/TicketId"
+      responses:
+        204:
+          description: No Content
+        400:
+          $ref: "#/components/responses/BadRequest"
+        401:
+          $ref: "#/components/responses/Unauthenticated"
+        403:
+          $ref: "#/components/responses/Unauthorized"
+        404:
+          $ref: "#/components/responses/NotFound"
+        500:
+          $ref: "#/components/responses/InternalServerError"
+  /user:
+    post:
+      summary: Used to store user.
+      description: This operation is used to store user.
+      operationId: storeUser
+      tags:
+        - user
+      requestBody:
+        $ref: "#/components/requestBodies/UserRequest"
+      responses:
+        201:
+          $ref: "#/components/responses/UserResponse"
+        400:
+          $ref: "#/components/responses/BadRequest"
+        401:
+          $ref: "#/components/responses/Unauthenticated"
+        403:
+          $ref: "#/components/responses/Unauthorized"
+        500:
+          $ref: "#/components/responses/InternalServerError"
+    get:
+      summary: Used to retrieve all users.
+      description: This operation is used to retrieve all users.
+      operationId: retrieveAllUsers
+      tags:
+        - user
+      responses:
+        200:
+          $ref: "#/components/responses/UsersResponse"
+        400:
+          $ref: "#/components/responses/BadRequest"
+        401:
+          $ref: "#/components/responses/Unauthenticated"
+        403:
+          $ref: "#/components/responses/Unauthorized"
+        500:
+          $ref: "#/components/responses/InternalServerError"
+  /user/{uuid}:
+    get:
+      summary: Used to retrieve user.
+      description: This operation is used to retrieve user.
+      operationId: retrieveUser
+      tags:
+        - user
+      parameters:
+        - $ref: "#/components/parameters/Uuid"
+      responses:
+        200:
+          $ref: "#/components/responses/UserResponse"
+        400:
+          $ref: "#/components/responses/BadRequest"
+        401:
+          $ref: "#/components/responses/Unauthenticated"
+        403:
+          $ref: "#/components/responses/Unauthorized"
+        404:
+          $ref: "#/components/responses/NotFound"
+        500:
+          $ref: "#/components/responses/InternalServerError"
+    patch:
+      summary: Used to modify user.
+      description: This operation is used to modify user.
+      operationId: modifyUser
+      tags:
+        - user
+      parameters:
+        - $ref: "#/components/parameters/UserId"
+      requestBody:
+        $ref: "#/components/requestBodies/UserRequest"
+      responses:
+        200:
+          $ref: "#/components/responses/UserResponse"
+        400:
+          $ref: "#/components/responses/BadRequest"
+        401:
+          $ref: "#/components/responses/Unauthenticated"
+        403:
+          $ref: "#/components/responses/Unauthorized"
+        404:
+          $ref: "#/components/responses/NotFound"
+        500:
+          $ref: "#/components/responses/InternalServerError"
+    delete:
+      summary: Used to delete user.
+      description: This operation is used to delete user.
+      operationId: deleteUser
+      tags:
+        - user
+      parameters:
+        - $ref: "#/components/parameters/UserId"
+      responses:
+        204:
+          description: No Content
+        400:
+          $ref: "#/components/responses/BadRequest"
+        401:
+          $ref: "#/components/responses/Unauthenticated"
+        403:
+          $ref: "#/components/responses/Unauthorized"
+        404:
+          $ref: "#/components/responses/NotFound"
+        500:
+          $ref: "#/components/responses/InternalServerError"
+  /ticket/{uuid}/history:
+    get:
+      summary: Used to retrieve ticket history.
+      description: This operation is used to retrieve ticket history.
+      operationId: retrieveTicketHistory
+      tags:
+        - ticket-history
+      parameters:
+        - $ref: "#/components/parameters/Uuid"
+      responses:
+        200:
+          $ref: "#/components/responses/TicketsResponse"
+        400:
+          $ref: "#/components/responses/BadRequest"
+        401:
+          $ref: "#/components/responses/Unauthenticated"
+        403:
+          $ref: "#/components/responses/Unauthorized"
+        404:
+          $ref: "#/components/responses/NotFound"
+        500:
+          $ref: "#/components/responses/InternalServerError"
+  /ticket/search:
+    get:
+      summary: Used to search ticket.
+      description: This operation is used to search ticket.
+      operationId: searchTicket
+      tags:
+        - search
+      parameters:
+        - $ref: "#/components/parameters/TicketTitle"
+      responses:
+        200:
+          $ref: "#/components/responses/TicketsResponse"
+        400:
+          $ref: "#/components/responses/BadRequest"
+        401:
+          $ref: "#/components/responses/Unauthenticated"
+        403:
+          $ref: "#/components/responses/Unauthorized"
+        500:
+          $ref: "#/components/responses/InternalServerError"
+  /user/search:
+    get:
+      summary: Used to search user.
+      description: This operation is used to search user.
+      operationId: searchUser
+      tags:
+        - search
+      parameters:
+        - $ref: "#/components/parameters/KeyWords"
+      responses:
+        200:
+          $ref: "#/components/responses/UsersResponse"
+        400:
+          $ref: "#/components/responses/BadRequest"
+        401:
+          $ref: "#/components/responses/Unauthenticated"
+        403:
+          $ref: "#/components/responses/Unauthorized"
+        500:
+          $ref: "#/components/responses/InternalServerError"
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  requestBodies:
+    TicketRequest:
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/TicketDto"
+    UserRequest:
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/UserDto"
+  responses:
+    TicketResponse:
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/TicketDto"
+    TicketsResponse:
+      description: OK
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: "#/components/schemas/TicketDto"
+    UserResponse:
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/UserDto"
+    UsersResponse:
+      description: OK
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: "#/components/schemas/UserDto"
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorDto"
+    Unauthenticated:
+      description: Unauthenticated
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorDto"
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorDto"
+    NotFound:
+      description: The specified resource was not found
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorDto"
+    InternalServerError:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorDto"
+  schemas:
+    UserDto:
+      type: object
+      properties:
+        uuid:
+          type: string
+          format: uuid
+        name:
+          type: string
+        surname:
+          type: string
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+          format: password
+        role:
+          $ref: "#/components/schemas/RoleDto"
+      required:
+        - name
+        - surname
+        - email
+        - role
+    RoleDto:
+      type: string
+      enum:
+        - ADMIN
+        - USER
+    LeanDto:
+      type: object
+      properties:
+        uuid:
+          type: string
+          format: uuid
+        description:
+          type: string
+      required:
+        - uuid
+        - description
+    TicketDto:
+      type: object
+      properties:
+        uuid:
+          type: string
+          format: uuid
+        title:
+          type: string
+        description:
+          type: string
+        lean:
+          $ref: "#/components/schemas/LeanDto"
+        priority:
+          type: integer
+        assignedTo:
+          $ref: "#/components/schemas/UserDto"
+      required:
+        - title
+        - lean
+        - priority
+        - assignedTo
+    ErrorDto:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+      required:
+        - code
+        - message
+  parameters:
+    Uuid:
+      name: uuid
+      in: path
+      required: true
+      description: Universally unique identifier (UUID) is a 128-bit label used to identify record.
+      schema:
+        type: string
+        format: uuid
+    TicketTitle:
+      name: ticketTitle
+      in: query
+      required: true
+      description: Used to identify ticket by its name.
+      schema:
+        type: string
+    KeyWords:
+      name: keyWords
+      in: query
+      required: true
+      description: Used to identify user by key words.
+      schema:
+        type: string
+security:
+  - bearerAuth: [ ]
