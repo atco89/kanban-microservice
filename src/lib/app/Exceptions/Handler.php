@@ -5,12 +5,15 @@ namespace App\Exceptions;
 
 use App\Models\ErrorDto;
 use App\Models\Mapper\Mapper;
+use AutoMapperPlus\Exception\UnregisteredMappingException;
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Validation\UnauthorizedException;
 use Throwable;
+use Tymon\JWTAuth\Exceptions\TokenExpiredException;
+use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 
 /**
  * Class Handler
@@ -20,8 +23,6 @@ class Handler extends ExceptionHandler
 {
 
     /**
-     * A list of the exception types that are not reported.
-     *
      * @var array
      */
     protected $dontReport = [
@@ -29,9 +30,7 @@ class Handler extends ExceptionHandler
     ];
 
     /**
-     * A list of the inputs that are never flashed for validation exceptions.
-     *
-     * @var array
+     * @var string[]
      */
     protected $dontFlash = [
         'password',
@@ -39,12 +38,8 @@ class Handler extends ExceptionHandler
     ];
 
     /**
-     * Report or log an exception.
-     *
      * @param Throwable $exception
-     * @return void
-     *
-     * @throws Exception
+     * @throws Throwable
      */
     public function report(Throwable $exception)
     {
@@ -52,34 +47,29 @@ class Handler extends ExceptionHandler
     }
 
     /**
-     * Render an exception into an HTTP response.
-     *
      * @param Request $request
      * @param Throwable $exception
      * @return \Symfony\Component\HttpFoundation\Response
-     *
      * @throws Throwable
+     * @throws UnregisteredMappingException
      */
     public function render($request, Throwable $exception): \Symfony\Component\HttpFoundation\Response
     {
         $mapper = (new Mapper())->load();
 
-        if ($exception instanceof NotUniqueEmailException) {
-            return response()->json($mapper->map($exception, ErrorDto::class), Response::HTTP_BAD_REQUEST);
+        switch (true) {
+            case $exception instanceof NotUniqueEmailException:
+                return response()->json($mapper->map($exception, ErrorDto::class), Response::HTTP_BAD_REQUEST);
+            case $exception instanceof UserNotFoundException:
+                return response()->json($mapper->map($exception, ErrorDto::class), Response::HTTP_NOT_FOUND);
+            case $exception instanceof Throwable:
+                return response()->json($mapper->map($exception, ErrorDto::class), Response::HTTP_INTERNAL_SERVER_ERROR);
+            case $exception instanceof TokenInvalidException:
+            case $exception instanceof TokenExpiredException:
+            case $exception instanceof UnauthorizedException:
+                return response()->json($mapper->map($exception, ErrorDto::class), Response::HTTP_UNAUTHORIZED);
+            default:
+                return parent::render($request, $exception);
         }
-
-        if ($exception instanceof UserNotFoundException) {
-            return response()->json($mapper->map($exception, ErrorDto::class), Response::HTTP_NOT_FOUND);
-        }
-
-        if ($exception instanceof UnauthorizedException) {
-            return response()->json($mapper->map($exception, ErrorDto::class), Response::HTTP_UNAUTHORIZED);
-        }
-
-        if ($exception instanceof Exception || $exception instanceof Throwable) {
-            return response()->json($mapper->map($exception, ErrorDto::class), Response::HTTP_INTERNAL_SERVER_ERROR);
-        }
-
-        return parent::render($request, $exception);
     }
 }
