@@ -6,7 +6,6 @@ A Kanban board is one of the tools that can be used to implement Kanban to manag
 
 * GNU Make;
 * Docker;
-* Internet connection;
 
 ### Installing 
 

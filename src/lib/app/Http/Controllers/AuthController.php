@@ -35,15 +35,16 @@ final class AuthController extends Controller
 
     /**
      * @param Request $request
+     * @param Response $response
      * @return Response
      * @throws UnregisteredMappingException
      */
-    public function signIn(Request $request): Response
+    public function signIn(Request $request, Response $response): Response
     {
         $credentials = get_object_vars($this->mapper->map($request, AuthDto::class));
         if (!$token = auth()->attempt($credentials)) {
-            throw new UnauthorizedException("User not found.");
+            throw new UnauthorizedException("Not valid email or password.");
         }
-        return response()->header('Authentication', $token);
+        return $response->header('Authentication', $token);
     }
 }
